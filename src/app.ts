@@ -1,5 +1,8 @@
 import Elysia from "elysia";
+import itemsApi from "./features/items/items.api";
 
-const app = new Elysia().get("/", () => "Hello Elysia");
+const api = new Elysia({ prefix: "/api" }).use(itemsApi);
+
+const app = new Elysia().use(api);
 
 export default app;

@@ -3,7 +3,7 @@
   "version": "1.0.50",
   "scripts": {
     "start": "./server",
-    "dev": "bun run --watch src/index.ts",
+    "dev": "bun --env-file=.env.local run --watch src/index.ts",
     "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server src/index.ts"
   },
   "dependencies": {
