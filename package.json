@@ -4,6 +4,7 @@
   "scripts": {
     "start": "./server",
     "dev": "bun --env-file=.env.local run --watch src/index.ts",
+    "test": "bun --env-file=.env.local test",
     "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server src/index.ts"
   },
   "dependencies": {

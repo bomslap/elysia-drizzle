@@ -2,21 +2,24 @@ import { Elysia } from "elysia";
 import { ItemsService } from "./items.service";
 import { CreateItemDto, UpdateItemDto, ItemParamsIdDto } from "./items.dto";
 
-const service = new ItemsService();
+const itemsService = new ItemsService();
 
 const itemsApi = new Elysia({ prefix: "/items" })
-  .post("/", ({ body }) => service.create(body), {
+  .post("/", async ({ body, status }) => {
+    const item = await itemsService.create(body);
+    return item ? status(201, item) : status(400);
+  }, {
     body: CreateItemDto,
   })
-  .get("/", () => service.findAll())
-  .get("/:id", ({ params }) => service.findOne(params.id), {
+  .get("/", () => itemsService.findAll())
+  .get("/:id", async ({ params, status }) => { const item = await itemsService.findOne(params.id); return item ? status(200, item) : status(404) }, {
     params: ItemParamsIdDto,
   })
-  .patch("/:id", ({ params, body }) => service.update(params.id, body), {
+  .patch("/:id", ({ params, body }) => itemsService.update(params.id, body), {
     params: ItemParamsIdDto,
     body: UpdateItemDto,
   })
-  .delete("/:id", ({ params }) => service.remove(params.id), {
+  .delete("/:id", ({ params }) => itemsService.remove(params.id), {
     params: ItemParamsIdDto,
   });
 
