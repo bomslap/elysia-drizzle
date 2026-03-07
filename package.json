@@ -8,6 +8,7 @@
     "build": "bun build --compile --minify-whitespace --minify-syntax --target bun --outfile server src/index.ts"
   },
   "dependencies": {
+    "@elysiajs/openapi": "^1.4.14",
     "drizzle-orm": "^0.45.1",
     "elysia": "latest"
   },
