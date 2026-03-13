@@ -7,6 +7,7 @@ const itemsTable = sqliteTable("items", {
   createdAt: integer("created_at", { mode: "timestamp" }).$defaultFn(
     () => new Date(),
   ),
+  isDeleted: integer("is_deleted", { mode: "boolean" }).default(false)
 });
 
 export default itemsTable;

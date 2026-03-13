@@ -1,7 +1,7 @@
 import db from "@/libs/drizzle/db";
 import { CreateItem, UpdateItem } from "./items.dto";
 import itemsTable from "./items.entity";
-import { eq } from "drizzle-orm";
+import { and, eq, ne } from "drizzle-orm";
 
 export class ItemsService {
   async create(data: CreateItem) {
@@ -10,23 +10,36 @@ export class ItemsService {
   }
 
   async findAll() {
-    return db.select().from(itemsTable).all();
+    return db
+      .select()
+      .from(itemsTable)
+      .where(ne(itemsTable.isDeleted, true))
+      .all();
   }
 
   async findOne(id: number) {
-    return db.select().from(itemsTable).where(eq(itemsTable.id, id)).get();
+    return db
+      .select()
+      .from(itemsTable)
+      .where(and(eq(itemsTable.id, id), ne(itemsTable.isDeleted, true)))
+      .get();
   }
 
   async update(id: number, data: UpdateItem) {
     return db
       .update(itemsTable)
       .set(data)
-      .where(eq(itemsTable.id, id))
+      .where(and(eq(itemsTable.id, id), ne(itemsTable.isDeleted, true)))
       .returning()
       .get();
   }
 
   async remove(id: number) {
-    return db.delete(itemsTable).where(eq(itemsTable.id, id)).run();
+    return db
+      .update(itemsTable)
+      .set({ isDeleted: true })
+      .where(and(eq(itemsTable.id, id), ne(itemsTable.isDeleted, true)))
+      .returning()
+      .get();
   }
 }
