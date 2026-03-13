@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "bun:test";
-import app from "../../app";
-import db from "../../libs/drizzle/db";
+import app from "@/app";
+import db from "@/libs/drizzle/db";
 import itemsTable from "./items.entity";
 
 beforeEach(() => {

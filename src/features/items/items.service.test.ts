@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "bun:test";
 import { ItemsService } from "./items.service";
-import db from "../../libs/drizzle/db";
+import db from "@/libs/drizzle/db";
 import itemsTable from "./items.entity";
 
 const service = new ItemsService();

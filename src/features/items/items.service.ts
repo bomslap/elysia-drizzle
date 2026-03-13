@@ -1,4 +1,4 @@
-import db from "../../libs/drizzle/db";
+import db from "@/libs/drizzle/db";
 import { CreateItem, UpdateItem } from "./items.dto";
 import itemsTable from "./items.entity";
 import { eq } from "drizzle-orm";
